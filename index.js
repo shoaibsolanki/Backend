@@ -8,7 +8,7 @@ var cors = require('cors')
 connectToMongo();
 const app = express()
 
-const port = 5000
+// const port = 5000
 
 app.use(cors())
 app.use(express.json())
@@ -28,8 +28,8 @@ app.get('*',(req,res,next)=>{
   })
 })
 
-app.listen(port, () => {
-  console.log(`Mad-Pharma backend listening at on //localhost:${port}`)
-})
+// app.listen(port, () => {
+//   console.log(`Mad-Pharma backend listening at on //localhost:${port}`)
+// })
 
 module.exports = app;

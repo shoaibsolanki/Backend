@@ -11,13 +11,13 @@ const mongoose = require('mongoose');
 
 // module.exports = connectToMongo;
 
-const server = '127.0.0.1:27017';
-const database ='MadPharma';
+// const server = '127.0.0.1:27017';
+// const database ='MadPharma';
 
 const connectToMongo = async () => {
     try{ 
         mongoose.set("strictQuery", false);
-        await mongoose.connect(`mongodb://${server}/${database}`);
+        await mongoose.connect(`mongodb+srv://shoaibsolanki73:shoaib123@cluster0.qixovaf.mongodb.net/`);
         console.log("connected to mongo succesfully");
     } catch (err){
         console.log('Failled connected to mongodb', err);

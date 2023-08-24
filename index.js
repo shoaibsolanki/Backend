@@ -22,6 +22,12 @@ app.use('/api/Transaction', require('./routers/Transaction'))
 app.use('/api', require('./routers/GetRecipte'))
 app.use('/api', require('./routers/Notifiation'))
 
+app.get('*',(req,res,next)=>{
+  res.status(200).json({
+    message:'bad request'
+  })
+})
+
 app.listen(port, () => {
   console.log(`Mad-Pharma backend listening at on //localhost:${port}`)
 })

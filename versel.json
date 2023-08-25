@@ -5,6 +5,6 @@
        { "src": "./sever.js", "use": "@vercel/node" }
     ],
     "routes": [
-       { "src": "/(.*)", "dest": "sever.js" }
+       { "src": "/(.*)", "dest": "/" }
     ]
  }

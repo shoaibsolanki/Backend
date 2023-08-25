@@ -1,6 +1,7 @@
 {
     "version": 2,
     "name": "music-album",
+    "installCommand":"npm install",
     "builds": [
        { "src": "*.js", "use": "@vercel/node" }
     ],

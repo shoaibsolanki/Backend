@@ -28,8 +28,8 @@ app.get('*',(req,res,next)=>{
   })
 })
 
-// app.listen(port, () => {
-//   console.log(`Mad-Pharma backend listening at on //localhost:${port}`)
-// })
+app.listen(port, () => {
+  console.log(`Mad-Pharma backend listening at on //localhost:${port}`)
+})
 
 module.exports = app;

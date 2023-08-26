@@ -14,7 +14,7 @@ app.use(cors())
 app.use(express.json())
 
 //available routes
-app.use("/uploads",express.static('uploads'))
+app.use("/uplodes",express.static('uplodes'))
 app.use('/api/auth', require('./routers/auth'))
 app.use('/api/book', require('./routers/book'))
 app.use('/api/test', require('./routers/Tests'))

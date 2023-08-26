@@ -1,13 +1,14 @@
 
 const express = require("express");
 const router = express.Router();
+const path = require('path')
 const EventEmitter = require('events')
 // const fetchuser = require("../middleware/fetchuser");
 const test = require("../models/Test");
 const multer = require('multer')
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, './backend/uploads'))
+    cb(null, "uplodes")
   },
   filename: function (req, file, cb){
     cb(null, file.originalname)

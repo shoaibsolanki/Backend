@@ -7,7 +7,7 @@ const test = require("../models/Test");
 const multer = require('multer')
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uplodes')
+    cb(null, 'uplodes')
   },
   filename: function (req, file, cb){
     cb(null, file.originalname)

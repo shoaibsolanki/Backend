@@ -4,12 +4,13 @@
     "installCommand":"npm install",
     "public":true,
     "builds": [
-       { "src": "*.js", "use": "@vercel/node" }
+       { "src": "*.js", "use": "@vercel/node",
+         "config": { "env": { "FILE_UPLOAD_PATH": "uplodes" } }
+       }
+       
     ],
     "routes": [
        { "src": "/(.*)", "dest": "/" }
-    ],
-    "env": {
-      "UPLOAD_PATH": "uplodes" 
-    }
+    ]
+    
  }

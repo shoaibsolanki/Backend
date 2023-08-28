@@ -1,10 +1,11 @@
 
 const express = require("express");
 const router = express.Router();
-const path = require('path')
-const EventEmitter = require('events')
-// const fetchuser = require("../middleware/fetchuser");
+// const path = require('path')
+// const EventEmitter = require('events')
 const test = require("../models/Test");
+const { body, validationResult } = require("express-validator");
+const fetchuser = require("../middleware/fetchuser");
 // const multer = require('multer')
 // const storage = multer.diskStorage({
 //   destination: function (req, file, cb) {
@@ -31,16 +32,14 @@ const test = require("../models/Test");
 // fileFilter:fileFilter,
 // });
 
-const { body, validationResult } = require("express-validator");
-const fetchuser = require("../middleware/fetchuser");
-const event = new EventEmitter();
+// const event = new EventEmitter();
 
-let Count=0
+// let Count=0
 
-event.on('TastAdd',()=>{
-  Count++
-  console.log(Count)
-})
+// event.on('TastAdd',()=>{
+//   Count++
+//   console.log(Count)
+// })
 
 // Router 1 for All Tests
 router.get('/alltests',async(req, resp)=>{
@@ -88,6 +87,7 @@ router.post("/addtest",
         if (!errors.isEmpty()) {
           return res.status(400).json({ errors: errors.array() });
         }
+        
         const slug = title.replaceAll(' ','-');
         const Test = new test({
           title,
@@ -99,7 +99,7 @@ router.post("/addtest",
         });
         const saveTest = await Test.save();
         res.json(saveTest);
-        event.emit('TastAdd')
+        // event.emit('TastAdd')
       } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
@@ -108,29 +108,30 @@ router.post("/addtest",
   )
 
   //Router 4 for Update your Test
-router.patch("/updattest/:id", async (req, res) => {
-  try {
-    const { title, description, testtype,price,testImage} = req.body;
-    const slug = title.replaceAll(' ','-');
+  router.patch("/updattest/:id", async (req, res) => {
+    try {
+      const { etitle, edescription, etesttype,eprice,etestImage} = req.body;
+    const slug = etitle?.replaceAll(' ','-');
+
     //Creat a newNote Object
       const newTest = {};
-      if (req.file) {
-        newTest.testImage = testImage;
+      if (etestImage) {
+        newTest.testImage = etestImage;
       }
       if (slug) {
         newTest.slug = slug;
       }
-      if (title) {
-        newTest.title = title;
+      if (etitle) {
+        newTest.title = etitle;
       }
-      if (description) {
-        newTest.description = description;
+      if (edescription) {
+        newTest.description = edescription;
       }
-      if (testtype) {
-        newTest.testtype = testtype;
+      if (etesttype) {
+        newTest.testtype = etesttype;
       }
-      if (price) {
-        newTest.price = price;
+      if (eprice) {
+        newTest.price = eprice;
       }
   
       //Find the Note to be Update and Update it
@@ -143,7 +144,6 @@ router.patch("/updattest/:id", async (req, res) => {
     //     return res.status(401).send("Not Allowed");
     //   }
     else{
-
       tests = await test.findByIdAndUpdate(
         req.params.id,
         { $set: newTest },

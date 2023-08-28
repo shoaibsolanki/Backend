@@ -5,31 +5,31 @@ const path = require('path')
 const EventEmitter = require('events')
 // const fetchuser = require("../middleware/fetchuser");
 const test = require("../models/Test");
-const multer = require('multer')
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uplodes")
-  },
-  filename: function (req, file, cb){
-    cb(null, file.originalname)
+// const multer = require('multer')
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "uplodes")
+//   },
+//   filename: function (req, file, cb){
+//     cb(null, file.originalname)
 
-  }
-})
-const fileFilter= (req,file,cb)=>{
-  if (file.mimetype==='image/jpeg'||file.mimetype==='image/png') {
-    cb(null, true)
+//   }
+// })
+// const fileFilter= (req,file,cb)=>{
+//   if (file.mimetype==='image/jpeg'||file.mimetype==='image/png') {
+//     cb(null, true)
     
-  }else{
-    cb(null, false)
-  }
-}
+//   }else{
+//     cb(null, false)
+//   }
+// }
  
-const uplaod = multer({storage: storage ,
-   limits:{
-  fileSize: 1024 * 1024 * 5
-},
-fileFilter:fileFilter,
-});
+// const uplaod = multer({storage: storage ,
+//    limits:{
+//   fileSize: 1024 * 1024 * 5
+// },
+// fileFilter:fileFilter,
+// });
 
 const { body, validationResult } = require("express-validator");
 const fetchuser = require("../middleware/fetchuser");
@@ -66,7 +66,7 @@ router.get('/search/:key' ,async (req,res)=>{
   })
 
 // Router 3 for Add new test
-router.post("/addtest", uplaod.single('testImage') ,
+router.post("/addtest",
     [
       body("title", "Enter Valid title").isLength({ min: 3 }),
       body("description", "description Must be five Charactor").isLength({
@@ -81,8 +81,8 @@ router.post("/addtest", uplaod.single('testImage') ,
     ],
     async (req, res) => {
       try {
-        const { title, description, testtype,price} = req.body;
-        const testImage = req.file.path;
+        const { title, description, testtype,price,testImage} = req.body;
+        // const testImage = req.file.path;
         //if there are errors, return bad request and the errors
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -108,14 +108,14 @@ router.post("/addtest", uplaod.single('testImage') ,
   )
 
   //Router 4 for Update your Test
-router.patch("/updattest/:id", uplaod.single('testImage'), async (req, res) => {
+router.patch("/updattest/:id", async (req, res) => {
   try {
-    const { title, description, testtype,price,} = req.body;
+    const { title, description, testtype,price,testImage} = req.body;
     const slug = title.replaceAll(' ','-');
     //Creat a newNote Object
       const newTest = {};
       if (req.file) {
-        newTest.testImage = req.file.path;
+        newTest.testImage = testImage;
       }
       if (slug) {
         newTest.slug = slug;

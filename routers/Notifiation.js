@@ -8,7 +8,7 @@ const { sendFireBaseNOtificationFCM } = require("../util/fcmNotification");
 const User = require("../models/User");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads')
+    cb(null, './uplodes')
   },
   filename: function (req, file, cb){
     cb(null, file.originalname)
